@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 03:45:06 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/13 21:37:12 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/13 22:17:32 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_bool	l_sa(t_list *ori)
 {
 	if (!ori)
 		return (FALSE);
-	l_swap (ori, 0, 1);
+	l_swap (&ori, 0, 1);
 	ft_puts ("sa\n");
 	return (TRUE);
 }

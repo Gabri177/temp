@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 02:36:57 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/13 21:15:37 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/13 22:55:14 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,22 @@ void	sol_pa_pb(int num_pa)
 	return ;
 }
 
-void	sol_tres(t_list *ori, t_list *asis)
+t_bool	sol_tres(t_list *ori)
 {
-	if (l_grep_index (ori, 0)->num == 0 && l_grep_index (ori, 0)->num == 2)
-		//sa ra
-	else if (l_grep_index (ori, 0)->num == 1 && l_grep_index (ori, 0)->num == 0)
-		//sa
-	else if (l_grep_index (ori, 0)->num == 1 && l_grep_index (ori, 0)->num == 2)
-		//rra
-	else if (l_grep_index (ori, 0)->num == 2 && l_grep_index (ori, 0)->num == 1)
-		//sa rra
-	else if (l_grep_index (ori, 0)->num == 2 && l_grep_index (ori, 0)->num == 0)
-		//ra
-	//exit
+	int	basura;
+
+	basura = 0;
+	if (l_grep_index (ori, 0)->num == 0 && l_grep_index (ori, 1)->num == 2)
+		return (l_sa (ori), l_rotate_nom (ori, &basura));
+	else if (l_grep_index (ori, 0)->num == 1 && l_grep_index (ori, 1)->num == 0)
+		return (l_sa (ori));
+	else if (l_grep_index (ori, 0)->num == 1 && l_grep_index (ori, 1)->num == 2)
+		return (l_rotate_rev(ori, &basura));
+	else if (l_grep_index (ori, 0)->num == 2 && l_grep_index (ori, 1)->num == 1)
+		return (l_sa (ori), l_rotate_rev (ori, &basura));
+	else if (l_grep_index (ori, 0)->num == 2 && l_grep_index (ori, 1)->num == 0)
+		return (l_rotate_rev(ori, &basura));
+	return (TRUE);
 }
 
 void	solucion(t_list *ori, t_list *asis)
@@ -102,6 +105,8 @@ int	main(int arc, char **argv)
 	if (!rept_check (cpy))
 		err_control (&ori, ERR_REPETIR);
 	l_neg_to_pos (cpy, ori);
+	if (arc <= 4)
+		sol_tres (ori);
 	solucion (ori, asis);
 	return (0);
 }
