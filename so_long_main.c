@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 21:42:17 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/22 00:59:04 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/22 01:10:05 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	cls_win(void *param)
 	return (0);
 }
 
-void	invalid_line_check(int fd)
+static void	invalid_line_check(int fd)
 {
 	char	*line;
 
