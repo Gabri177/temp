@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 20:07:16 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/21 23:11:16 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/22 01:05:34 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,18 @@ int	r_fd(char *dir)
 
 static t_bool	r_str_leg(char *str)
 {
-	size_t	i;
+	size_t		i;
+	static	int	num_p;
 
 	i = 0;
 	while (i < ft_strlen (str))
 	{
+		if (str[i] == 'P')
+			num_p ++;
 		if (str[i] != '1' && str[i] != '0' && str[i] != 'P'
 			&& str[i] != 'C' && str[i] != 'E' && str[i] != '\n')
+			return (FALSE);
+		if (num_p > 1)
 			return (FALSE);
 		i ++;
 	}
@@ -60,17 +65,15 @@ t_bool	r_size(t_data *info, int fd)
 	char				*line;
 
 	line = get_next_line (fd);
-	if (!line)
+	if (!line || *line == '\n')
 		e_exit (ERR_RED);
 	w = r_len (line);
 	h ++;
 	while (line)
 	{
 		line = get_next_line (fd);
-		if (!line)
+		if (!line || *line == '\n')
 			break ;
-		if (*line == '\n')
-			e_exit (ERR_MAP);
 		if (r_len (line) != w)
 			e_exit (ERR_NOM);
 		free (line);

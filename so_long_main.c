@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 21:42:17 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/21 23:17:31 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/22 00:59:04 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,27 @@ int	cls_win(void *param)
 	return (0);
 }
 
-int	main(int arc, char **argv)   // control del nombre del archivo 
+void	invalid_line_check(int fd)
+{
+	char	*line;
+
+	line = get_next_line (fd);
+	if (!line)
+		e_exit (ERR_RED);
+	while (*line == '\n')
+		line = get_next_line (fd);
+	while (line && *line != '\n')
+		line = get_next_line (fd);
+	while (line)
+	{
+		if (*line != '\n')
+			e_exit (ERR_MAP);
+		line = get_next_line (fd);
+	}
+	close (fd);
+}
+
+int	main(int arc, char **argv)
 {
 	t_data	info;
 
@@ -70,6 +90,7 @@ int	main(int arc, char **argv)   // control del nombre del archivo
 		e_exit (ERR_ARG);
 	if (!ft_strnstr (argv[1], ".ber", ft_strlen (argv[1])))
 		e_exit (ERR_ARG);
+	invalid_line_check (r_fd (argv[1]));
 	r_size (&info, r_fd (argv[1]));
 	info_init (&info);
 	m_init (&info.mrx, info);

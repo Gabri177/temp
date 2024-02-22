@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:58:16 by yugao             #+#    #+#             */
-/*   Updated: 2024/01/12 18:50:43 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/22 00:57:32 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 			&& p1 + p2 < len)
 		{
 			p2 ++;
-			if (needle[p2] == 0)
+			if (needle[p2] == 0 && haystack[p1 + p2] == 0)
 				return ((char *)(haystack + p1));
 		}
 		p1 ++;
