@@ -6,11 +6,11 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 19:15:03 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/21 22:05:00 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/23 19:36:31 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../header/so_long.h"
 
 t_bool	m_init(t_ary *l, t_data info)
 {

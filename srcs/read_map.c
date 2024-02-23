@@ -6,11 +6,11 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 20:07:16 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/22 01:05:34 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/23 19:40:05 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../header/so_long.h"
 
 int	r_fd(char *dir)
 {
@@ -25,7 +25,7 @@ int	r_fd(char *dir)
 static t_bool	r_str_leg(char *str)
 {
 	size_t		i;
-	static	int	num_p;
+	static int	num_p;
 
 	i = 0;
 	while (i < ft_strlen (str))

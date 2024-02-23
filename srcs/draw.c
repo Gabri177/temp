@@ -6,11 +6,11 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 01:06:01 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/21 22:03:20 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/23 19:36:22 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../header/so_long.h"
 
 static t_bool	dw_wall(t_data info, t_ary m)
 {

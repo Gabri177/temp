@@ -6,11 +6,11 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 20:24:36 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/21 20:51:42 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/23 19:36:27 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../header/so_long.h"
 
 static void	e_info_err(char *str)
 {

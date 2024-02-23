@@ -6,11 +6,11 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 03:44:33 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/21 20:28:56 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/23 19:36:33 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../header/so_long.h"
 
 t_bool	canmov(t_ary m, int x, int y)
 {
