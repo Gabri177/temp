@@ -35,14 +35,23 @@ typedef struct s_philo
 	size_t			time_slp;
 	size_t			n_must_eat;
 	size_t			n_eated;
+	size_t			time_begin;
 	size_t			time_last_eat;
 	pthread_mutex_t	*l_lfork;
 	pthread_mutex_t	*l_rfork;
 	pthread_mutex_t	*l_eat;
 	pthread_mutex_t	*l_slp;
-	pthread_mutex_t	*l_prt;
+	pthread_mutex_t	*l_wrt;
 }						t_philo;
 
+typedef struct s_pro
+{
+	t_philo			*phis;
+	t_bool			is_die;
+	pthread_mutex_t	eat_lock;
+	pthread_mutex_t wrt_lock;
+	pthread_mutex_t	die_lock;
+}						t_pro;
 //----------str.c---------------
 size_t	str_len(const char *str);
 void	str_errmsg(const char *msg);
