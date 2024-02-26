@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 16:04:54 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/25 16:06:22 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/26 21:43:42 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,19 @@ typedef struct s_philo
 {
 	int				n_philo;
 	int				id;
+	t_bool			*isdie;
 	pthread_t		thread;
 	size_t			time_die;
 	size_t			time_eat;
 	size_t			time_slp;
-	size_t			n_must_eat;
-	size_t			n_eated;
+	int				n_must_eat;
+	int				n_eated;
 	size_t			time_begin;
 	size_t			time_last_eat;
 	pthread_mutex_t	*l_lfork;
 	pthread_mutex_t	*l_rfork;
 	pthread_mutex_t	*l_eat;
-	pthread_mutex_t	*l_slp;
+	pthread_mutex_t	*l_die;
 	pthread_mutex_t	*l_wrt;
 }						t_philo;
 
@@ -49,9 +50,11 @@ typedef struct s_pro
 	t_philo			*phis;
 	t_bool			is_die;
 	pthread_mutex_t	eat_lock;
-	pthread_mutex_t wrt_lock;
+	pthread_mutex_t	wrt_lock;
 	pthread_mutex_t	die_lock;
 }						t_pro;
+
+typedef pthread_mutex_t	t_lock;
 //----------str.c---------------
 size_t	str_len(const char *str);
 void	str_errmsg(const char *msg);
