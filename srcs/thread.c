@@ -14,7 +14,7 @@
 
 static t_bool	is_phi_die(t_philo *phi)
 {
-	if (gettime () - phi->time_last_eat >= phi->time_die)
+	if ((gettime () - phi->time_last_eat >= phi->time_die))
 	{
 		msg ("died", phi);
 		return (TRUE);
