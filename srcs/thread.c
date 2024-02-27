@@ -66,7 +66,6 @@ static void	*monitor(void *philos)
 {
 	t_philo	*phis;
 
-	//printf ("monitor\n");
 	phis = (t_philo *)philos;
 	while (1)
 	{

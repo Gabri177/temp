@@ -36,3 +36,20 @@ void	*rotine(void *philo)
 	}
 	return (philo);
 }
+
+void	destory_all(t_pro *project, char *msg)
+{
+	int	i;
+
+	i = 0;
+	if (!msg || msg)
+		(void)msg;
+	else
+		str_errmsg (msg);
+	pthread_mutex_destroy (&project->wrt_lock);
+	while (i < project->phis->n_philo)
+	{
+		pthread_mutex_destroy (project->phis[i].l_lfork);
+		i ++;
+	}
+}

@@ -41,7 +41,6 @@ typedef struct s_philo
 	size_t		time_last_eat;
 	t_lock		*l_lfork;
 	t_lock		*l_rfork;
-	t_lock		*l_die;
 	t_lock		*l_wrt;
 }						t_philo;
 
@@ -50,7 +49,6 @@ typedef struct s_pro
 	t_philo	*phis;
 	t_bool	is_die;
 	t_lock	wrt_lock;
-	t_lock	die_lock;
 }						t_pro;
 //----------str.c---------------
 void	str_errmsg(const char *msg);
@@ -68,5 +66,6 @@ void	init_forks(t_lock *forks, int num);
 void	init_phis(t_pro *pro, t_lock *fork, char **argv);
 //----------action.c------------
 void	*rotine(void *philo);
+void	destory_all(t_pro *project, char *msg);
 
 #endif
