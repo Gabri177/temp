@@ -40,9 +40,9 @@ typedef struct s_philo
 	size_t		time_begin;
 	size_t		time_last_eat;
 	t_lock		*l_lfork;
-	t_lock	*l_rfork;
-	t_lock	*l_die;
-	t_lock	*l_wrt;
+	t_lock		*l_rfork;
+	t_lock		*l_die;
+	t_lock		*l_wrt;
 }						t_philo;
 
 typedef struct s_pro
