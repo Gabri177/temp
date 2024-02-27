@@ -37,7 +37,7 @@ void	*rotine(void *philo)
 	return (philo);
 }
 
-void	destory_all(t_pro *project, char *msg)
+t_bool	destory_all(t_pro *project, char *msg, t_bool retn_val)
 {
 	int	i;
 
@@ -52,4 +52,5 @@ void	destory_all(t_pro *project, char *msg)
 		pthread_mutex_destroy (project->phis[i].l_lfork);
 		i ++;
 	}
+	return (retn_val);
 }

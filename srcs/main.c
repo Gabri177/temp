@@ -46,6 +46,6 @@ int	main(int arc, char **argv)
 	init_forks (forks, ft_atoi (argv[1]));
 	init_phis (&project, forks, argv);
 	thread_creat (&project);
-	destory_all (&project, NULL);
+	destory_all (&project, NULL, FALSE);
 	return (0);
 }

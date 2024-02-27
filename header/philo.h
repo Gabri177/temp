@@ -66,6 +66,5 @@ void	init_forks(t_lock *forks, int num);
 void	init_phis(t_pro *pro, t_lock *fork, char **argv);
 //----------action.c------------
 void	*rotine(void *philo);
-void	destory_all(t_pro *project, char *msg);
-
+t_bool	destory_all(t_pro *project, char *msg, t_bool retn_val);
 #endif
