@@ -53,23 +53,20 @@ typedef struct s_pro
 	t_lock	die_lock;
 }						t_pro;
 //----------str.c---------------
-size_t	str_len(const char *str);
 void	str_errmsg(const char *msg);
 void	str_msg(const char *msg);
 void	msg(char *str, t_philo *phi);
-
 //----------utls.c--------------
 size_t	gettime(void);
 void	ft_sleep(size_t m_time);
 int		ft_atoi(char *str);
-
 //----------thread.c------------
 void	thread_creat(t_pro *proj);
 //----------init.c--------------
 void	init_prj(t_pro *pro, t_philo *philos);
 void	init_forks(t_lock *forks, int num);
 void	init_phis(t_pro *pro, t_lock *fork, char **argv);
-
 //----------action.c------------
 void	*rotine(void *philo);
+
 #endif

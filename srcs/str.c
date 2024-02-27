@@ -12,7 +12,7 @@
 
 #include "../header/philo.h"
 
-size_t	str_len(const char *str)
+static size_t	str_len(const char *str)
 {
 	size_t	len;
 
