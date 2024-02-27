@@ -12,84 +12,91 @@
 
 #include "../header/philo.h"
 
-/* void	do_eat(t_philo	*phi)
+static t_bool	is_phi_die(t_philo *phi)
 {
-	pthread_mutex_lock (&phi->l_lfork);
-	printf ("philosopher %d grabe the left fork...\n", phi->id);
-	pthread_mutex_lock (&phi->l_rfork);
-	printf ("philosopher %d grabe the right fork...\n", phi->id);
-	ft_sleep (phi->time_eat);
-	pthread_mutex_lock (&phi->l_eat);
-	phi->n_eated ++;
-	printf ("philosopher %d is eating...\n", phi->id);
-	ft_sleep (phi->time_eat);
-	phi->time_last_eat = gettime ();
-	pthread_mutex_unlock (&phi->l_eat);
-	pthread_mutex_unlock (&phi->l_lfork);
-	pthread_mutex_unlock (&phi->l_rfork);
+	if (gettime () - phi->time_last_eat >= phi->time_die)
+	{
+		msg ("died", phi);
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
-void	do_slp(t_philo	*phi)
+static t_bool	is_over(t_philo *phis)
 {
-	printf ("philosopher %d is sleeping...\n", phi->id);
-	ft_sleep (phi->time_slp);
-}
-
-void	do_thk(t_philo	*phi)
-{
-	printf ("philosopher %d is thinking...\n", phi->id);
-}
-
-t_bool	t_creat_philo(int arc, char **argv, t_philo *phi)
-{
-	int		i;
+	int	i;
 
 	i = 0;
-	phi = (t_philo *) malloc (sizeof (t_philo) * ft_atoi (argv[1]));
-	if (!phi)
+	while (i < phis->n_philo)
+	{
+		if (is_phi_die(&phis[i]))
+		{
+			*phis[i].isdie = TRUE;
+			return (TRUE);
+		}
+		i ++;
+	}
+	return (FALSE);
+}
+
+static t_bool	is_all_eat(t_philo *phis)
+{
+	int	i;
+	int	num;
+
+	num = 0;
+	i = 0;
+	if (phis->n_must_eat == -1)
 		return (FALSE);
-	while (i < ft_atoi (argv[1]))
+	while (i < phis->n_philo)
 	{
-		phi[i].id = i;
-		phi[i].n_philo = ft_atoi (argv[1]);
-		phi[i].time_die = ft_atoi (argv[2]);
-		phi[i].time_eat = ft_atoi (argv[3]);
-		phi[i].time_slp = ft_atoi (argv[4]);
-		phi[i].time_last_eat = gettime ();
-		if (arc == 6)
-			phi[i].n_must_eat = ft_atoi (argv[5]);
-		else
-			phi[i].n_must_eat = -1;
-		phi[i].n_eated = 0;
+		if (phis[i].n_eated >= phis->n_must_eat)
+			num ++;
+		i ++;
+	}
+	if (num == phis->n_philo)
+	{
+		*phis->isdie = TRUE;
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+static void	*monitor(void *philos)
+{
+	t_philo	*phis;
+
+	//printf ("monitor\n");
+	phis = (t_philo *)philos;
+	while (1)
+	{
+		if (is_over (phis) || is_all_eat (phis))
+			break ;
+	}
+	return (philos);
+}
+
+void	thread_creat(t_pro *proj)
+{
+	pthread_t	sudo;
+	int			i;
+
+	if (pthread_create (&sudo, NULL, monitor, proj->phis) != 0)
+		str_msg ("Error!\n");
+	i = 0;
+	while (i < proj->phis->n_philo)
+	{
+		if (pthread_create (&proj->phis[i].thread, NULL, rotine, &proj->phis[i]) != 0)
+			str_msg ("Error!\n");
 		i ++;
 	}
 	i = 0;
-	while (i < phi[0].n_philo)
+	if (pthread_join(sudo, NULL) != 0)
+		str_msg ("Error!\n");
+	while (i < proj->phis->n_philo)
 	{
-		pthread_mutex_init (&phi[i].l_eat, NULL);
-		pthread_mutex_init (&phi[i].l_lfork, NULL);
-		pthread_mutex_init (&phi[i].l_rfork, NULL);
-		pthread_mutex_init (&phi[i].l_slp, NULL);
-		pthread_mutex_init (&phi[i].l_prt, NULL);
-		pthread_create (&phi[i].thread, NULL, philo_do, (void *)&phi[i]);
-		i ++;
-	}
-	i = 0;
-	while (i < phi[0].n_philo)
-	{
-		pthread_join(phi[i].thread, NULL);
+		if (pthread_join(proj->phis[i].thread, NULL) != 0)
+			str_msg ("Error!\n");
 		i++;
 	}
-	return (TRUE);
 }
-
-void	*philo_do(void *arg)
-{
-	t_philo	*phi;
-
-	phi = (t_philo *)arg;
-	do_eat (phi);
-	do_slp (phi);
-	do_thk (phi);
-	return (arg);
-} */

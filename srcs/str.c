@@ -31,3 +31,14 @@ void	str_msg(const char *msg)
 {
 	write (1, msg, str_len (msg));
 }
+
+void	msg(char *str, t_philo *phi)
+{
+	size_t	time;
+
+	pthread_mutex_lock (phi->l_wrt);
+	time = gettime () - phi->time_begin;
+	if (*phi->isdie != TRUE)
+		printf ("%zu\tPhilosopher[%d] %s\n", time, phi->id, str);
+	pthread_mutex_unlock (phi->l_wrt);
+}
