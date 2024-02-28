@@ -6,11 +6,20 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 16:05:04 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/25 17:25:47 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/28 22:39:15 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/philo.h"
+
+static t_bool	is_phi_die(t_philo *phi)
+{
+	pthread_mutex_lock (phi->l_eat);
+	if ((gettime () - phi->time_last_eat >= phi->time_die))
+		return (pthread_mutex_unlock (phi->l_eat), TRUE);
+	pthread_mutex_unlock (phi->l_eat);
+	return (FALSE);
+}
 
 static t_bool	is_over(t_philo *phis)
 {
@@ -19,12 +28,12 @@ static t_bool	is_over(t_philo *phis)
 	i = 0;
 	while (i < phis->n_philo)
 	{
-		if (gettime () - phis[i].time_last_eat >= phis[i].time_die)
+		if (is_phi_die(&phis[i]))
 		{
-			msg ("died", &phis[i]);
-			pthread_mutex_lock (phis[i].l_die);
+			msg ("died", phis);
+			pthread_mutex_lock (phis->l_die);
 			*phis[i].isdie = TRUE;
-			pthread_mutex_unlock (phis[i].l_die);
+			pthread_mutex_unlock (phis->l_die);
 			return (TRUE);
 		}
 		i ++;
@@ -41,17 +50,19 @@ static t_bool	is_all_eat(t_philo *phis)
 	i = 0;
 	if (phis->n_must_eat == -1)
 		return (FALSE);
-	while (i < phis->n_philo)
+	while (i < phis[0].n_philo)
 	{
-		if (phis[i].n_eated >= phis->n_must_eat)
+		pthread_mutex_lock (phis[i].l_eat);
+		if (phis[i].n_eated >= phis[i].n_must_eat)
 			num ++;
+		pthread_mutex_unlock (phis[i].l_eat);
 		i ++;
 	}
-	if (num == phis->n_philo)
+	if (num == phis[0].n_philo)
 	{
-		pthread_mutex_lock (phis[i].l_die);
-		*phis[i].isdie = TRUE;
-		pthread_mutex_unlock (phis[i].l_die);
+		pthread_mutex_lock (phis[0].l_die);
+		*phis->isdie = TRUE;
+		pthread_mutex_unlock (phis[0].l_die);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -64,7 +75,7 @@ static void	*monitor(void *philos)
 	phis = (t_philo *)philos;
 	while (1)
 	{
-		if (is_over (phis) || is_all_eat (phis))
+		if (is_over (phis) == TRUE || is_all_eat (phis) == TRUE)
 			break ;
 	}
 	return (philos);

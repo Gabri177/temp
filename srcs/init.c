@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:57:41 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/27 20:57:41 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/28 22:21:41 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_prj(t_pro *pro, t_philo *philos)
 	pro->phis = philos;
 	pthread_mutex_init (&pro->wrt_lock, NULL);
 	pthread_mutex_init (&pro->die_lock, NULL);
-	//pthread_mutex_init (&pro->eat_time_l, NULL);
+	pthread_mutex_init (&pro->eat_lock, NULL);
 }
 
 void	init_forks(t_lock *forks, int num)
@@ -63,7 +63,8 @@ void	init_phis(t_pro *pro, t_lock *fork, char **argv)
 		pro->phis[i].l_rfork = &fork[(i + 1) % ft_atoi (argv[1])];
 		pro->phis[i].isdie = &pro->is_die;
 		pro->phis[i].l_die = &pro->die_lock;
-		//pro->phis[i].l_eat_time = &pro->eat_time_l;
+		pro->phis[i].l_eat = &pro->eat_lock;
+		pro->phis[i].iseating = FALSE;
 		init_r_info (&pro->phis[i], argv);
 		i ++;
 	}
