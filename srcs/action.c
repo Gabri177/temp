@@ -26,8 +26,10 @@ static void	eat(t_philo *phi)
 	msg ("has taken a fork", phi);
 	msg ("is eating", phi);
 	ft_sleep (phi->time_eat);
+	//pthread_mutex_lock (phi->l_die);// eat lock
 	phi->n_eated ++;
 	phi->time_last_eat = gettime ();
+	//pthread_mutex_unlock (phi->l_die);// eat lock
 	pthread_mutex_unlock(phi->l_lfork);
 	pthread_mutex_unlock(phi->l_rfork);
 }
@@ -39,13 +41,17 @@ void	*rotine(void *philo)
 	phi = (t_philo *)philo;
 	if (phi->id % 2 == 0)
 		ft_sleep (1);
+	pthread_mutex_lock (phi->l_die);
 	while (*phi->isdie == FALSE)
 	{
+		pthread_mutex_unlock (phi->l_die);
 		eat (phi);
 		msg ("is sleeping", phi);
 		ft_sleep (phi->time_slp);
 		msg ("is thinking", phi);
+		pthread_mutex_lock (phi->l_die);
 	}
+	pthread_mutex_unlock (phi->l_die);
 	return (philo);
 }
 

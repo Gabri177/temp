@@ -3,7 +3,7 @@ CFILE = $(addprefix ./srcs/, $(SRCS))
 OFILE = $(CFILE:.c=.o)
 HDIR = ./header
 NAME = philo
-CFLAG = -Wall -Wextra -Werror
+CFLAG = -Wall -Wextra -Werror -pthread -fsanitize=thread -g
 CC = gcc
 
 all: $(NAME)

@@ -42,6 +42,8 @@ typedef struct s_philo
 	t_lock		*l_lfork;
 	t_lock		*l_rfork;
 	t_lock		*l_wrt;
+	t_lock		*l_die;
+	//t_lock		*l_eat_time;
 }						t_philo;
 
 typedef struct s_pro
@@ -49,6 +51,8 @@ typedef struct s_pro
 	t_philo	*phis;
 	t_bool	is_die;
 	t_lock	wrt_lock;
+	t_lock	die_lock;
+	//t_lock	eat_time_l;
 }						t_pro;
 //----------str.c---------------
 void	str_errmsg(const char *msg);

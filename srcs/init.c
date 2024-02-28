@@ -18,6 +18,8 @@ void	init_prj(t_pro *pro, t_philo *philos)
 	pro->is_die = FALSE;
 	pro->phis = philos;
 	pthread_mutex_init (&pro->wrt_lock, NULL);
+	pthread_mutex_init (&pro->die_lock, NULL);
+	//pthread_mutex_init (&pro->eat_time_l, NULL);
 }
 
 void	init_forks(t_lock *forks, int num)
@@ -60,6 +62,8 @@ void	init_phis(t_pro *pro, t_lock *fork, char **argv)
 		pro->phis[i].l_lfork = &fork[i];
 		pro->phis[i].l_rfork = &fork[(i + 1) % ft_atoi (argv[1])];
 		pro->phis[i].isdie = &pro->is_die;
+		pro->phis[i].l_die = &pro->die_lock;
+		//pro->phis[i].l_eat_time = &pro->eat_time_l;
 		init_r_info (&pro->phis[i], argv);
 		i ++;
 	}

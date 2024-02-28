@@ -12,16 +12,6 @@
 
 #include "../header/philo.h"
 
-static t_bool	is_phi_die(t_philo *phi)
-{
-	if ((gettime () - phi->time_last_eat >= phi->time_die))
-	{
-		msg ("died", phi);
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
 static t_bool	is_over(t_philo *phis)
 {
 	int	i;
@@ -29,9 +19,12 @@ static t_bool	is_over(t_philo *phis)
 	i = 0;
 	while (i < phis->n_philo)
 	{
-		if (is_phi_die(&phis[i]))
+		if (gettime () - phis[i].time_last_eat >= phis[i].time_die)
 		{
+			msg ("died", &phis[i]);
+			pthread_mutex_lock (phis[i].l_die);
 			*phis[i].isdie = TRUE;
+			pthread_mutex_unlock (phis[i].l_die);
 			return (TRUE);
 		}
 		i ++;
@@ -56,7 +49,9 @@ static t_bool	is_all_eat(t_philo *phis)
 	}
 	if (num == phis->n_philo)
 	{
-		*phis->isdie = TRUE;
+		pthread_mutex_lock (phis[i].l_die);
+		*phis[i].isdie = TRUE;
+		pthread_mutex_unlock (phis[i].l_die);
 		return (TRUE);
 	}
 	return (FALSE);
