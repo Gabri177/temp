@@ -87,21 +87,21 @@ void	thread_creat(t_pro *proj)
 	int			i;
 
 	if (pthread_create (&sudo, NULL, monitor, proj->phis) != 0)
-			destory_all (proj, "Error!\n", FALSE);
+			destory_all (proj, "Error!\n: Thread create!\n", FALSE);
 	i = 0;
 	while (i < proj->phis->n_philo)
 	{
 		if (pthread_create (&proj->phis[i].thread, NULL, rotine, &proj->phis[i]) != 0)
-			destory_all (proj, "Error!\n", FALSE);
+			destory_all (proj, "Error!\n: Thread create!\n", FALSE);
 		i ++;
 	}
 	i = 0;
 	if (pthread_join(sudo, NULL) != 0)
-		destory_all (proj, "Error!\n", FALSE);
+		destory_all (proj, "Error!\n: Thread join!\n", FALSE);
 	while (i < proj->phis->n_philo)
 	{
 		if (pthread_join(proj->phis[i].thread, NULL) != 0)
-			destory_all (proj, "Error!\n", FALSE);
+			destory_all (proj, "Error!\n: Thread join!\n", FALSE);
 		i++;
 	}
 }

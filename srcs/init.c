@@ -13,25 +13,31 @@
 #include "../header/philo.h"
 
 
-void	init_prj(t_pro *pro, t_philo *philos)
+t_bool	init_prj(t_pro *pro, t_philo *philos)
 {
 	pro->is_die = FALSE;
 	pro->phis = philos;
-	pthread_mutex_init (&pro->wrt_lock, NULL);
-	pthread_mutex_init (&pro->die_lock, NULL);
-	pthread_mutex_init (&pro->eat_lock, NULL);
+	if (pthread_mutex_init (&pro->wrt_lock, NULL))
+		return (FALSE);
+	if (pthread_mutex_init (&pro->die_lock, NULL))
+		return (FALSE);
+	if (pthread_mutex_init (&pro->eat_lock, NULL))
+		return (FALSE);
+	return (TRUE);
 }
 
-void	init_forks(t_lock *forks, int num)
+t_bool	init_forks(t_lock *forks, int num)
 {
 	int	i;
 
 	i = 0;
 	while (i < num)
 	{
-		pthread_mutex_init (&forks[i], NULL);
+		if (pthread_mutex_init (&forks[i], NULL))
+			return (FALSE);
 		i ++;
 	}
+	return (TRUE);
 }
 
 static void	init_r_info(t_philo *phi, char **argv)

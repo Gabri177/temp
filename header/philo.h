@@ -67,8 +67,8 @@ int		ft_atoi(char *str);
 //----------thread.c------------
 void	thread_creat(t_pro *proj);
 //----------init.c--------------
-void	init_prj(t_pro *pro, t_philo *philos);
-void	init_forks(t_lock *forks, int num);
+t_bool	init_prj(t_pro *pro, t_philo *philos);
+t_bool	init_forks(t_lock *forks, int num);
 void	init_phis(t_pro *pro, t_lock *fork, char **argv);
 //----------action.c------------
 void	*rotine(void *philo);

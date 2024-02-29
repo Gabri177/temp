@@ -56,8 +56,10 @@ int	main(int arc, char **argv)
 		return (1);
 	if (!check_argv (arc, argv) || !check_argv_num (arc, argv))
 		return (str_errmsg ("Please check the argument!\n"), 1);
-	init_prj (&project, philos);
-	init_forks (forks, ft_atoi (argv[1]));
+	if (!init_prj (&project, philos))
+		return (str_errmsg ("Init proj error!\n"), 1);
+	if (!init_forks (forks, ft_atoi (argv[1])))
+		return (str_errmsg ("Init forks error!\n"), 1);
 	init_phis (&project, forks, argv);
 	thread_creat (&project);
 	destory_all (&project, NULL, FALSE);
