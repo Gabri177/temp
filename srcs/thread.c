@@ -15,7 +15,7 @@
 static t_bool	is_phi_die(t_philo *phi)
 {
 	pthread_mutex_lock (phi->l_eat);
-	if ((gettime () - phi->time_last_eat >= phi->time_die))
+	if ((gettime () - phi->time_last_eat >= phi->time_die) && phi->iseating == FALSE)
 		return (pthread_mutex_unlock (phi->l_eat), TRUE);
 	pthread_mutex_unlock (phi->l_eat);
 	return (FALSE);

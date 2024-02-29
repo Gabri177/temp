@@ -31,6 +31,7 @@ static void	eat(t_philo *phi)
 	phi->time_last_eat = gettime ();
 	pthread_mutex_unlock (phi->l_eat);
 	ft_sleep (phi->time_eat);
+	phi->iseating = FALSE;
 	pthread_mutex_unlock(phi->l_lfork);
 	pthread_mutex_unlock(phi->l_rfork);
 }
