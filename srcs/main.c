@@ -12,7 +12,7 @@
 
 #include "../header/philo.h"
 
-t_bool	check_argv(int arc, char **argv)
+static t_bool	check_argv(int arc, char **argv)
 {
 	int	i;
 	int	j;
@@ -32,6 +32,20 @@ t_bool	check_argv(int arc, char **argv)
 	return (TRUE);
 }
 
+static t_bool	check_argv_num(int arc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (i < arc)
+	{
+		if (ft_atoi (argv[i]) <= 0)
+			return (FALSE);
+		i ++;
+	}
+	return (TRUE);
+}
+
 int	main(int arc, char **argv)
 {
 	t_pro	project;
@@ -40,8 +54,8 @@ int	main(int arc, char **argv)
 
 	if (arc != 5 && arc != 6)
 		return (1);
-	if (!check_argv (arc, argv))
-		return (1);
+	if (!check_argv (arc, argv) || !check_argv_num (arc, argv))
+		return (str_errmsg ("Please check the argument!\n"), 1);
 	init_prj (&project, philos);
 	init_forks (forks, ft_atoi (argv[1]));
 	init_phis (&project, forks, argv);

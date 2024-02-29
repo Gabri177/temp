@@ -58,7 +58,7 @@ typedef struct s_pro
 }						t_pro;
 //----------str.c---------------
 void	str_errmsg(const char *msg);
-void	str_msg(const char *msg);
+//void	str_msg(const char *msg);
 void	msg(char *str, t_philo *phi);
 //----------utls.c--------------
 size_t	gettime(void);
