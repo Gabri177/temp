@@ -116,6 +116,13 @@ int	arry_del(char ***args, int index)
 	//printf ("----这里是删除数组元素的函数内部， 我们计算出的数组长度 %d\n", len);
 	if (index >= len || index < 0)
 		return (FALSE);
+	if (len == 1)
+	{
+		free ((*args)[index]);
+		(*args)[index] = NULL;
+		free (*args);
+		return (TRUE);
+	}
 	free ((*args)[index]);
 	(*args)[index] = NULL;
 	//printf ("----这是删除数组元素函数的内部， 我们刚刚释放了index位置的数组元素, 并把这个位置指向了NULL \n");
