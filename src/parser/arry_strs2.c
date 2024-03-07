@@ -36,8 +36,11 @@ void	arry_display(char **ary)
 
 	i = 0;
 	if (!ary || !*ary)
+	{
+		printf ("\t{\n\t\"\"\n\t}\n\n");
 		return ;
-	printf ("Argumentos Splited: \n\t{\n");
+	}
+	printf ("\t{\n");
 	while (ary[i])
 	{
 		printf ("\t\"%s\"", ary[i]);
@@ -45,7 +48,7 @@ void	arry_display(char **ary)
 		if (ary[i])
 			printf (",\n");
 	}
-	printf ("\n\t}\n");
+	printf ("\n\t}\n\n");
 }
 
 //如果val这个字符串不为空, 我们把他加入到字符串数组arys中, 并释放val内存, 让其指向NULL

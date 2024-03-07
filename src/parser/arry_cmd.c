@@ -110,7 +110,7 @@ void	args_no_cmds(char ***args)
 		return ;
 	}
 	//printf ("这是没有命令的数组内部， 下面我们先打印传入的参数看看如何\n");
-	arry_display (*args);
+	//arry_display (*args);
 	//printf ("上面就是我们传入args no cmd的数组\n");
 	if ((*args)[0] && !is_strsame ((*args)[0], PIPES))
 		arry_del (args, 0);
