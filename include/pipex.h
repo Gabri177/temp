@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/03 18:33:33 by javgao            #+#    #+#             */
-/*   Updated: 2024/03/06 20:11:16 by javgao           ###   ########.fr       */
+/*   Created: 2024/02/09 11:53:26 by jjuarez-          #+#    #+#             */
+/*   Updated: 2024/03/04 17:56:15 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
+void	ft_exit(int n_exit);
+int		ft_open(char *file, int n);
+char	*ft_envp(char *variable, char **envp);
+char	*ft_path(char *cmd, char **envp);
+void	ft_exec(char *cmd, char **envp);
+void	ft_free(char **arr);
+int		pipex_bonus(int argc, char **argv, char **envp);
 
-#include "../include/minishell.h"
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_mini	mini;
-
-	if (argc > 1)
-		return(print_error("More than one argument"));
-	init_mini (&mini, envp);
-	rl_on_new_line();
-	shell_loop(&mini);
-	(void)argv;
-	return (0);
-} 
+#endif

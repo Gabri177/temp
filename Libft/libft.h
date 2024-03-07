@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javgao <yugao@student.42madrid.com>        +#+  +:+       +#+        */
+/*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 16:14:28 by jjuarez-          #+#    #+#             */
-/*   Updated: 2024/03/03 20:15:45 by javgao           ###   ########.fr       */
+/*   Updated: 2024/03/06 17:22:46 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void(*del)(void *));
 int		ft_strcmp(char *s1, char *s2);
 char	*get_next_line(int fd);
 size_t	ft_strchrlen(const char *len, char c);
+int		ft_strrchrlen(const char *s, int c);
 size_t	ft_strcountchars(const char *str, char c);
 size_t	ft_strcountcharslen(const char *str, char c, int len);
 

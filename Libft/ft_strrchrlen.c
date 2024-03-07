@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchrlen.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/03 18:33:33 by javgao            #+#    #+#             */
-/*   Updated: 2024/03/06 20:11:16 by javgao           ###   ########.fr       */
+/*   Created: 2024/01/09 08:05:37 by jjuarez-          #+#    #+#             */
+/*   Updated: 2024/03/06 17:22:29 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-
-#include "../include/minishell.h"
-
-int	main(int argc, char **argv, char **envp)
+int	ft_strrchrlen(const char *s, int c)
 {
-	t_mini	mini;
+	int	i;
+	int	j;
 
-	if (argc > 1)
-		return(print_error("More than one argument"));
-	init_mini (&mini, envp);
-	rl_on_new_line();
-	shell_loop(&mini);
-	(void)argv;
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	j = i;
+	while (j >= 0)
+	{
+		if (s[j] == (char) c)
+			return (j);
+		else
+			j--;
+	}
 	return (0);
-} 
+}

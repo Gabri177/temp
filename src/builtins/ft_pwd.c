@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/03 18:33:33 by javgao            #+#    #+#             */
-/*   Updated: 2024/03/06 20:11:16 by javgao           ###   ########.fr       */
+/*   Created: 2024/03/04 08:20:49 by javgao            #+#    #+#             */
+/*   Updated: 2024/03/06 14:11:44 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/minishell.h"
 
-
-#include "../include/minishell.h"
-
-int	main(int argc, char **argv, char **envp)
+int	ft_pwd(t_mini *mini)
 {
-	t_mini	mini;
+	printf ("%s\n", hash_grep(mini->hash_env, "PWD"));
+	return (EXIT_SUCCESS);
+}
 
-	if (argc > 1)
-		return(print_error("More than one argument"));
-	init_mini (&mini, envp);
-	rl_on_new_line();
-	shell_loop(&mini);
-	(void)argv;
+/*int	main(int argc, char **argv, char **envp)				//Con leaks
+{
+	t_mini 	mini;
+	argc = 0;
+	argv = NULL;
+	init_env(&mini, envp);
+	ft_pwd(&mini);
+	system("leaks -q minishell");
 	return (0);
-} 
+}*/

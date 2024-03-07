@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   arry_chr2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
+/*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/03 18:36:30 by javgao            #+#    #+#             */
-/*   Updated: 2024/03/04 22:38:25 by javgao           ###   ########.fr       */
+/*   Created: 2024/03/04 23:52:07 by yugao             #+#    #+#             */
+/*   Updated: 2024/03/05 01:01:02 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#include "../../include/minishell.h"
 
-# include "minishell.h"
-
-//void	init_mini(t_mini *mini, int argc, char **argv, char **envp);
-
-#endif
+int	is_not_key(char c)
+{
+	if (c != ' ' && c != '|' && c != '>' && c != '<'
+		&& c != QUOTE_BIG && c != QUOTE_LIT)
+		return (TRUE);
+	return (FALSE);
+}

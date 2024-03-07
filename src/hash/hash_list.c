@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   hash_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
+/*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 00:30:18 by yugao             #+#    #+#             */
-/*   Updated: 2024/03/03 01:39:33 by yugao            ###   ########.fr       */
+/*   Updated: 2024/03/05 20:30:06 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./hash.h"
+#include "../../include/minishell.h"
 
 t_node	*list_init(void)
 {
@@ -19,7 +19,6 @@ t_node	*list_init(void)
 	new = malloc (sizeof (t_node));
 	if (!new)
 		return (NULL);
-	new->id = -1;
 	new->key = NULL;
 	new->val = NULL;
 	new->next = NULL;
@@ -49,7 +48,10 @@ t_bool	list_del(t_node *l, char *key)
 	t_node	*prev;
 
 	if (!l || !l->next)
+	{
 		printf ("The list is empty!\n");
+		return (FALSE);
+	}
 	prev = l;
 	current = prev->next;
 	while (current)
@@ -57,6 +59,8 @@ t_bool	list_del(t_node *l, char *key)
 		if (is_strsame (key, current->key))
 		{
 			prev->next = current->next;
+			free (current->key);
+			free (current->val);
 			free (current);
 			return (TRUE);
 		}
@@ -82,7 +86,7 @@ t_bool	list_grep(t_node *l, char *key)
 		{
 			if (is_strsame (key, tem->key))
 			{
-				printf ("GREP:\n\tKEY:%s VAL:%s ID:%d\n", tem->key, tem->val, tem->id);
+				printf ("GREP:\n\tKEY:%s VAL:%s\n", tem->key, tem->val);
 				return (TRUE);
 			}
 			tem = tem->next;
@@ -113,20 +117,4 @@ t_bool	list_destory(t_node *l)
 	free (l);
 	l = NULL;
 	return (TRUE);
-}
-void	list_print(t_node *l)
-{
-	t_node	*tem;
-	int		num;
-
-	num = 0;
-	if (!l || !l->next)
-		printf ("The list is empty!\n");
-	tem = l->next;
-	while (tem)
-	{
-		printf ("%d:\tKEY:%s VAL:%s ID:%d\n", num, tem->key, tem->val, tem->id);
-		num ++;
-		tem = tem->next;
-	}
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
+/*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:22:24 by yugao             #+#    #+#             */
-/*   Updated: 2024/03/04 03:59:46 by yugao            ###   ########.fr       */
+/*   Updated: 2024/03/06 10:18:28 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/parser.h"
+#include "../../include/minishell.h"
 
 int	quote_check(char *str)
 {
@@ -50,30 +50,44 @@ char	**arg_abordar(char *ori)
 	return (new_arvs);
 }
 
-int main (void)
+/*int main (void)
 {
-	char	test[]="echo  \"this is a test\" \'dafsdf\' g";
-	static char	**tem;
-	static char	**prueba;
+	// situacion como ||||||| o >>>>>> o <<<<<<<< o <> ><   >>>>le3 中间的">>"被当成文件了 所以le3没有被删除
+	char	test[]=" ls >file1 >>file2 -la arg1[1] arg2[1]|grep >file >>fill| cat -d arg1[3] | cd | ls arg1[4] arg2[4]";//write a checker to theck the ilegal situation
+	char	**ori_args;
+	char	**outfile;
+	char	**cmds;
+	char	***argss;
+	//char	**no_cmds;
 
-	// tem = arg_abordar (test);
-	// if (!tem)
-	// 	return 1;
-	// int i = 0;
-	// while (tem[i])
-	// {
-	// 	printf ("==%s=", tem[i]);
-	// 	i ++;
-	// }
+	ori_args = arg_abordar (test);
+	if (!ori_args)
+		printf ("empty");
+	//=======================================
+	printf ("original args:\n");
+	arry_display (ori_args);
+	//=======================================
+	outfile = args_to_outfile (&ori_args);
+	printf ("outfile:\n");
+	arry_display (outfile);
+	//=======================================
+	printf ("args sin outfiles:\n");
+	arry_display (ori_args);
+	//=======================================
+	printf ("simple commands:\n");
+	cmds = args_to_cmds (&ori_args);
+	arry_display (cmds);
+	arry_display (ori_args);
+	//=======================================
+	printf ("argumentossss:\n");
+	argss = args_to_args (&ori_args);
+	
 
-	//prueba = NULL;
-	split_args (&prueba, " < infile ls -l| grep \"   this is a test   \" ga\'little quote \'briel> newfile>file2 > file3");
-	arry_display (prueba);
-	arry_destory (prueba);
-	// tem = arg_abordar (test);
-	// if (!tem)
-	// 	printf ("????");
-	// arry_display (tem);
-	// arry_destory (tem);
+
+	argss_destory (argss);
+	arry_destory (cmds);
+	arry_destory (ori_args);
+	arry_destory (outfile);
+	system ("leaks -q minishell");
 	return 0;
-}
+}*/

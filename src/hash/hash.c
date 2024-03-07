@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hash.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
+/*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 00:30:00 by yugao             #+#    #+#             */
-/*   Updated: 2024/03/03 02:04:11 by yugao            ###   ########.fr       */
+/*   Updated: 2024/03/05 18:07:21 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./hash.h"
+#include "../../include/minishell.h"
 
 t_hash	*hash_init(void)
 {
@@ -34,6 +34,8 @@ t_bool	hash_push(t_hash *h, char *key, char *val)
 	int	index;
 
 	index = hash_func (key);
+	if (hash_grep (h, key))
+		hash_del (h, key);
 	if (!h->bucket[index])
 	{
 		h->bucket[index] = list_init ();
@@ -56,21 +58,17 @@ char	*hash_grep(t_hash *h, char *key)
 
 	index = hash_func (key);
 	if (!h->bucket[index])
-	{
-		printf ("%s no exist en hashmap!\n", key);
 		return (NULL);
-	}
 	tem = h->bucket[index];
 	while (tem)
 	{
 		if (is_strsame (tem->key, key))
-		{
-			printf ("Key: %s Val: %s Id: %d\n", key, tem->val, tem->id);
+		// {
+		// 	printf ("Key: %s Val: %s\n", key, tem->val);
 			return (tem->val);
-		}
+		// }
 		tem = tem->next;
 	}
-	printf ("%s no exist en hashmap!\n", key);
 	return (NULL);
 }
 
@@ -78,6 +76,7 @@ t_bool	hash_destory(t_hash	*h)
 {
 	int	i;
 
+	i = 0;
 	while (i < HASH_SIZE)
 	{
 		if (h->bucket[i])
@@ -88,15 +87,14 @@ t_bool	hash_destory(t_hash	*h)
 	h = NULL;
 	return (TRUE);
 }
+
 t_bool	hash_del(t_hash	*h, char *key)
 {
 	int		index;
-	t_node	*tem;
 
 	index = hash_func (key);
 	if (!h->bucket[index])
 		printf ("%s no exist!\n", key);
-	tem = h->bucket[index];
-	list_del (tem, key);
+	list_del (h->bucket[index], key);
 	return (TRUE);
 }

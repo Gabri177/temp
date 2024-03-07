@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: javgao <yugao@student.42madrid.com>        +#+  +:+       +#+         #
+#    By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/12 18:09:36 by jjuarez-          #+#    #+#              #
-#    Updated: 2024/03/03 20:01:24 by javgao           ###   ########.fr        #
+#    Updated: 2024/03/06 17:23:03 by javgao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SOURCES   = ft_isalnum.c ft_isdigit.c ft_memcmp.c ft_putchar_fd.c ft_split.c ft_
             ft_putstr_fd.c ft_striteri.c ft_strlen.c ft_strrchr.c ft_toupper.c ft_strcmp.c \
 			get_next_line_utils_bonus.c get_next_line_bonus.c ft_strchrlen.c ft_strcountchars.c \
 			ft_printf/ft_printf.c ft_printf/ft_putchar.c ft_printf/ft_putstr.c ft_printf/ft_putnbr.c \
-			ft_printf/ft_hexa.c ft_printf/ft_ptr.c ft_strcountcharslen.c
+			ft_printf/ft_hexa.c ft_printf/ft_ptr.c ft_strcountcharslen.c ft_strrchrlen.c
 
 BONUS = 	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
 			ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
