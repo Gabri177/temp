@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 23:46:29 by yugao             #+#    #+#             */
-/*   Updated: 2024/03/06 05:00:07 by yugao            ###   ########.fr       */
+/*   Updated: 2024/03/07 22:15:40 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	arry_destory(char **ary)
 		free (ary[i]);
 		i ++;
 	}
-	free (ary);
+	if (ary)
+		free (ary);
 }
 
 //输出ary这个字符串数组的元素值

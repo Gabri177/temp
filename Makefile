@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+         #
+#    By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/27 21:53:52 by jjuarez-          #+#    #+#              #
-#    Updated: 2024/03/06 20:09:17 by javgao           ###   ########.fr        #
+#    Updated: 2024/03/07 21:31:48 by yugao            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g
 RM			= rm -rf
 BUILTINS	= builtin.c ft_echo.c ft_cd.c ft_pwd.c ft_export.c ft_unset.c ft_env.c #ft_exit.c
 INIT		= init.c loop.c
@@ -29,7 +29,7 @@ INCLUDE		= ./include/
 OBJECTS		= $(SOURCES:.c=.o)
 
 $(NAME): $(OBJECTS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) -lreadline -I $(INCLUDE) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) -lreadline -I $(INCLUDE) -o $(NAME) -g
 $(LIBFT):
 	make -C libft
 

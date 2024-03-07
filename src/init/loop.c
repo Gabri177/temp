@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javgao <yugao@student.42madrid.com>        +#+  +:+       +#+        */
+/*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 19:45:16 by javgao            #+#    #+#             */
-/*   Updated: 2024/03/07 01:25:30 by javgao           ###   ########.fr       */
+/*   Updated: 2024/03/07 23:04:54 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ void shell_loop(t_mini *mini)
 			add_history(line);
 			mini->arg_ori = arg_abordar (line);
 			free(line);
-			printf ("original :\n");
-			arry_display (mini->arg_ori);
+			line = NULL;
+			//printf ("original :\n");
+			//arry_display (mini->arg_ori);
 			mini->outfile = args_to_outfile (&mini->arg_ori);
-			printf ("outfile :\n");
-			arry_display (mini->outfile);
+			//printf ("outfile :\n");
+			//arry_display (mini->outfile);
 			mini->commands = args_to_cmds (&mini->arg_ori);
 			printf ("command :\n");
 			arry_display (mini->commands);
+			arry_display (mini->arg_ori);
 			mini->args = args_to_args (&mini->arg_ori);
 			printf ("ARGSSSSSSS :\n");
 			argss_display(mini->args);
