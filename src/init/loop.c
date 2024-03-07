@@ -35,9 +35,8 @@ void shell_loop(t_mini *mini)
 			printf ("command :\n");
 			arry_display (mini->commands);
 			mini->args = args_to_args (&mini->arg_ori);
-			/* int i = 0;
-			while (mini->args[i])
-				arry_display (mini->args[i++]); */
+			printf ("ARGSSSSSSS :\n");
+			argss_display(mini->args);
 			//excuter
 		}
 		
@@ -47,7 +46,7 @@ void shell_loop(t_mini *mini)
 		mini->outfile = NULL;
 		arry_destory (mini->commands);
 		mini->commands = NULL;
-		//argss_destory (mini->args, 2);
+		argss_destory (mini->args);
 		mini->args = NULL;
 		// Aquí se pueden añadir códigos para procesar el comando
 	}

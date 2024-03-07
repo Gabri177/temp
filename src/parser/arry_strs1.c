@@ -111,14 +111,14 @@ int	arry_del(char ***args, int index)
 	//char	*tem; //Unused variable
 	int	len;
 
-	printf ("----这里是删除数组元素的函数内部， 我们开始计算数组长度\n");
+	//printf ("----这里是删除数组元素的函数内部， 我们开始计算数组长度\n");
 	len = arry_count (*args);
-	printf ("----这里是删除数组元素的函数内部， 我们计算出的数组长度 %d\n", len);
+	//printf ("----这里是删除数组元素的函数内部， 我们计算出的数组长度 %d\n", len);
 	if (index >= len || index < 0)
 		return (FALSE);
 	free ((*args)[index]);
 	(*args)[index] = NULL;
-	printf ("----这是删除数组元素函数的内部， 我们刚刚释放了index位置的数组元素, 并把这个位置指向了NULL \n");
+	//printf ("----这是删除数组元素函数的内部， 我们刚刚释放了index位置的数组元素, 并把这个位置指向了NULL \n");
 	while (index < len - 1)
 	{
 		(*args)[index] = (*args)[index + 1];
@@ -126,6 +126,6 @@ int	arry_del(char ***args, int index)
 	}
 	(*args)[index] = strdup ("trash");
 	*args = arry_cpy_sml (*args);
-	printf ("----我们成功删除了index位置的数组元素！\n");
+	//printf ("----我们成功删除了index位置的数组元素！\n");
 	return (TRUE);
 }

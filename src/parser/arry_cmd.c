@@ -71,7 +71,7 @@ int	count_args(char **args)
 
 	i = 0;
 	n = 1;
-	printf ("========这是计算没有cmd但是有管道符号的数组中 我们总共要分成多少个二位数组的函数\n");
+	//printf ("========这是计算没有cmd但是有管道符号的数组中 我们总共要分成多少个二位数组的函数\n");
 	if (!args || !*args)
 		return (n);
 	while (args[i])
@@ -80,8 +80,22 @@ int	count_args(char **args)
 			n ++;
 		i ++;
 	}
-	printf ("========这是计算没有cmd但是有管道符号的数组中 我们总共要分成多少个二位数组的函数: %d\n", n);
+	//printf ("========这是计算没有cmd但是有管道符号的数组中 我们总共要分成多少个二位数组的函数: %d\n", n);
 	return (n);
+}
+
+void	argss_display(char ***args)
+{
+	int i;
+
+	i = 0;
+	if(!args || !*args)
+		return ;
+	while (args[i])
+	{
+		arry_display (args[i]);
+		i ++;
+	}
 }
 
 //传入合并命令后的ori数组 一般在用完args_to_cmd后使用, 我们会得到去掉simple command后的ori_args数组
@@ -95,12 +109,12 @@ void	args_no_cmds(char ***args)
 		printf ("nulll!!!!!\n");
 		return ;
 	}
-	printf ("这是没有命令的数组内部， 下面我们先打印传入的参数看看如何\n");
+	//printf ("这是没有命令的数组内部， 下面我们先打印传入的参数看看如何\n");
 	arry_display (*args);
-	printf ("上面就是我们传入args no cmd的数组\n");
+	//printf ("上面就是我们传入args no cmd的数组\n");
 	if ((*args)[0] && !is_strsame ((*args)[0], PIPES))
 		arry_del (args, 0);
-	printf ("如果第一个元素存在而且， 第一个元素不为管道符号， 我们已经执行了删除操作\n");
+	//printf ("如果第一个元素存在而且， 第一个元素不为管道符号， 我们已经执行了删除操作\n");
 	while (*args && (*args)[i] && arry_count (*args))
 	{
 		if (is_strsame ((*args)[i], PIPES) && (*args)[i + 1]
@@ -108,7 +122,7 @@ void	args_no_cmds(char ***args)
 			arry_del (args, i + 1);
 		i ++;
 	}
-	printf ("这意味着no cmd函数已经结束, 我们从这里退出这个函数\n");
+	//printf ("这意味着no cmd函数已经结束, 我们从这里退出这个函数\n");
 }
 
 //根据没有基础命令的数组进行参数的获取, 生成二维数组, 每获取一个数据就会删除一个数据
@@ -146,14 +160,14 @@ char	**get_args(char ***args)
 }
 
 //销毁三维数组
-void	argss_destory(char ***argss, int len)
+void	argss_destory(char ***argss)
 {
 	int	i;
 
 	i = 0;
-	if (!argss || !*argss || !**argss)
+	if (!argss || !*argss)
 		return ;
-	while (i < len)
+	while (argss[i])
 	{
 		arry_destory (argss[i]);
 		i ++;
@@ -170,19 +184,19 @@ char	***args_to_args(char ***args)
 
 	if (!*args || !**args)
 		return (NULL);
-	printf ("**这是args转换函数的开始 我们先输出看看这个函数存储的东西\n");
-	arry_display (*args);
-	printf ("**这是args转换函数的内部 我们刚刚结束了传入参数的打印\n\n");
+	//printf ("**这是args转换函数的开始 我们先输出看看这个函数存储的东西\n");
+	//arry_display (*args);
+	//printf ("**这是args转换函数的内部 我们刚刚结束了传入参数的打印\n\n");
 	new = NULL;
 	i = 0;
-	printf ("这是args转换函数的内部 我们下面运行去掉参数中命令的函数\n");
+	//printf ("这是args转换函数的内部 我们下面运行去掉参数中命令的函数\n");
 	args_no_cmds (args);
-	arry_display (*args);
-	printf ("这是args转换函数的内部 我们已经结束了no cmd函数的运行 下面我们计算转换函数结束后的数组长度\n\n");
+	//arry_display (*args);
+	//printf ("这是args转换函数的内部 我们已经结束了no cmd函数的运行 下面我们计算转换函数结束后的数组长度\n\n");
 	len = count_args (*args);
-	printf ("这是args转换函数的内部 我们已经求出了no cmd函数运行后的数组长度为 》 %d\n", len);
+	//printf ("这是args转换函数的内部 我们已经求出了no cmd函数运行后的数组长度为 》 %d\n", len);
 	if (!*args || len == 0)
-		return (NULL);// 当只有个代码且没有arg的时候 这个是空
+		return (NULL);
 	new = malloc (sizeof (char **) * (len + 1));
 	while (i < len)
 		new[i++] = NULL;
@@ -192,12 +206,12 @@ char	***args_to_args(char ***args)
 		new[i] = get_args (args);
 		i ++;
 	}
-	i = 0;
-	while (i < len)
-	{
-		printf ("\n+++++++++我们下面输出一下我们生成的arg数组++++++++++[%d]:\n", i);
-		arry_display (new[i]);
-		i ++;
-	}
+	// i = 0;
+	// while (i < len)
+	// {
+	// 	printf ("\n+++++++++我们下面输出一下我们生成的arg数组++++++++++[%d]:\n", i);
+	// 	arry_display (new[i]);
+	// 	i ++;
+	// }
 	return (new);
 }

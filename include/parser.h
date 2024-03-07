@@ -47,7 +47,8 @@ void	args_no_outfile(char ***args, char **ofile);
 char	**args_to_cmds(char ***args);
 void	args_no_cmds(char ***args);
 char	***args_to_args(char ***args);
-void	argss_destory(char ***argss, int len);
+void	argss_destory(char ***argss);
+void	argss_display(char ***args);
 
 char	**arg_abordar(char *ori);
 int		arry_count(char **arys);

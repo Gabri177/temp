@@ -44,16 +44,13 @@ void	hash_display(t_hash	h)
 void	list_print(t_node *l)
 {
 	t_node	*tem;
-	int		num;
 
-	num = 0;
 	if (!l || !l->next)
 		return ;
 	tem = l->next;
 	while (tem)
 	{
 		printf ("%s\n", tem->val);
-		num ++;
 		tem = tem->next;
 	}
 }
