@@ -6,7 +6,7 @@
 /*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:20:49 by javgao            #+#    #+#             */
-/*   Updated: 2024/03/06 10:58:52 by javgao           ###   ########.fr       */
+/*   Updated: 2024/03/10 01:38:15 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	ft_env(t_mini *mini)
 {
 	hash_display(*mini->hash_env);
-	hash_destory(mini->hash_env);
 	return (EXIT_SUCCESS);
 }
 /*int	main(int argc, char **argv, char **envp) 			//TIENE LEAKSSSSSSSS

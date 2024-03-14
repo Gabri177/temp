@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_free_four.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 11:53:26 by jjuarez-          #+#    #+#             */
-/*   Updated: 2024/03/04 17:56:15 by javgao           ###   ########.fr       */
+/*   Created: 2024/03/09 19:48:04 by javgao            #+#    #+#             */
+/*   Updated: 2024/03/10 01:42:35 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_BONUS_H
-# define PIPEX_BONUS_H
+#include "../../include/minishell.h"
 
-void	ft_exit(int n_exit);
-int		ft_open(char *file, int n);
-char	*ft_envp(char *variable, char **envp);
-char	*ft_path(char *cmd, char **envp);
-void	ft_exec(char *cmd, char **envp);
-void	ft_free(char **arr);
-int		pipex_bonus(int argc, char **argv, char **envp);
-
-#endif
+void	ft_free_four(char **one, char **two, char **three, char **four)
+{
+	free(*one);
+	free(*two);
+	free(*three);
+	free(*four);
+	*one = NULL;
+	*two = NULL;
+	*three = NULL;
+	*four = NULL;
+}

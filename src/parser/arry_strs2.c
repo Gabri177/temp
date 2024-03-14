@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arry_strs2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
+/*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 23:46:29 by yugao             #+#    #+#             */
-/*   Updated: 2024/03/07 22:15:40 by yugao            ###   ########.fr       */
+/*   Updated: 2024/03/10 20:23:17 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	arry_display(char **ary)
 	printf ("\n\t}\n\n");
 }
 
-//如果val这个字符串不为空, 我们把他加入到字符串数组arys中, 并释放val内存, 让其指向NULL
+//如果val这个字符串不为\b, 我们把他加入到字符串数组arys中, 并释放val内存, 让其指向NULL
 // Si la cadena val no está vacía, la agregamos al arreglo de cadenas arys, 
 //liberamos la memoria ocupada por val y hacemos que apunte a NULL.
 void	arry_refresh(char ***arys, char **val)

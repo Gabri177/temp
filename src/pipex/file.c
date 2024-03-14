@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/04 08:20:49 by javgao            #+#    #+#             */
-/*   Updated: 2024/03/10 01:38:55 by javgao           ###   ########.fr       */
+/*   Created: 2024/03/13 04:24:57 by javgao            #+#    #+#             */
+/*   Updated: 2024/03/13 09:21:37 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_exit(char *line)
+int	clean_outfile(t_mini *mini)
 {
-	int		spaces;
-	char	*exit;
+	int	fd;
 
-	spaces = 0;
-	while (line[spaces] == ' ')
-		spaces++;
-	exit = ft_substr(line, spaces, ft_strlen(line));
-	if (exit[4] == ' ' || (exit[4] >= 9 && exit[4] <= 13) || exit[4] == '\0')
-	{
-		if (ft_strncmp(exit, "exit", 3) == 0)
-			return (TRUE);
-	}
-	free(exit);
-	return (FALSE);
+	(void)mini;
+	fd = open("./Libft/ft_printf/.outfile", O_WRONLY | O_TRUNC);
+	if (fd == -1)
+		return (print_error("Error opening the file on clean_outfile"));
+	close (fd);
+	return (EXIT_SUCCESS);
 }

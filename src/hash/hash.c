@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
+/*   By: javgao <yugao@student.42madrid.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 00:30:00 by yugao             #+#    #+#             */
-/*   Updated: 2024/03/05 18:07:21 by javgao           ###   ########.fr       */
+/*   Updated: 2024/03/13 08:02:18 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ char	*hash_grep(t_hash *h, char *key)
 	while (tem)
 	{
 		if (is_strsame (tem->key, key))
-		// {
-		// 	printf ("Key: %s Val: %s\n", key, tem->val);
 			return (tem->val);
-		// }
 		tem = tem->next;
 	}
 	return (NULL);

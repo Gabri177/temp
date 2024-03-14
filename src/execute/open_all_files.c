@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   open_all_files.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgao <yugao@student.42madrid.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/04 08:20:49 by javgao            #+#    #+#             */
-/*   Updated: 2024/03/13 07:57:07 by javgao           ###   ########.fr       */
+/*   Created: 2024/03/13 06:37:17 by javgao            #+#    #+#             */
+/*   Updated: 2024/03/13 07:59:11 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	is_have_var(char *str)
+void	open_all_files(t_mini *mini)
 {
-	while (*str)
+	int	i;
+	int	fd;
+
+	i = 0;
+	if (mini->flag_append_output == FALSE && mini->flag_output == FALSE)
+		return ;
+	while (mini->outfile[i])
 	{
-		if (*str == '=')
-			return (TRUE);
-		str ++;
+		if (ft_strcmp(mini->outfile[i], ">") == 0
+			|| ft_strcmp(mini->outfile[i], ">>") == 0)
+			i++;
+		else
+		{
+			fd = open(mini->outfile[i], O_CREAT | O_WRONLY, 0777);
+			close(fd);
+			i++;
+		}
 	}
-	return (FALSE);
-}
-
-int	ft_export(t_mini *mini, char *variable)
-{
-	int		len_to_equal;
-	char	*key;
-
-	if (!is_have_var (variable))
-		return (EXIT_SUCCESS);
-	len_to_equal = ft_strchrlen(variable, '=');
-	key = ft_substr(variable, 0, len_to_equal);
-	hash_push(mini->hash_env, key, variable);
-	free(key);
-	return (EXIT_SUCCESS);
 }

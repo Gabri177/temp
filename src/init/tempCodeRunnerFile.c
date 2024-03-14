@@ -1,1 +1,0 @@
-mini->args = args_to_args (&mini->arg_ori);

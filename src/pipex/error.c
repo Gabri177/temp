@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/04 08:20:49 by javgao            #+#    #+#             */
-/*   Updated: 2024/03/10 01:38:55 by javgao           ###   ########.fr       */
+/*   Created: 2024/03/12 10:39:19 by javgao            #+#    #+#             */
+/*   Updated: 2024/03/13 06:49:54 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_exit(char *line)
+void	error_message(char *file)
 {
-	int		spaces;
-	char	*exit;
-
-	spaces = 0;
-	while (line[spaces] == ' ')
-		spaces++;
-	exit = ft_substr(line, spaces, ft_strlen(line));
-	if (exit[4] == ' ' || (exit[4] >= 9 && exit[4] <= 13) || exit[4] == '\0')
+	if (file)
 	{
-		if (ft_strncmp(exit, "exit", 3) == 0)
-			return (TRUE);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(file, 2);
 	}
-	free(exit);
-	return (FALSE);
+	ft_putstr_fd("\n", 2);
+}
+
+void	cmd_not_found(t_pipex *pipex, int i)
+{
+	ft_putstr_fd("minishell: command not found: ", 2);
+	ft_putstr_fd(pipex->cmds[i].args[0], 2);
+	ft_putstr_fd("\n", 2);
+	pipex->cmds[i].found = false;
 }

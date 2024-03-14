@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   hash.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
+/*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 00:24:13 by yugao             #+#    #+#             */
-/*   Updated: 2024/03/05 20:29:20 by javgao           ###   ########.fr       */
+/*   Updated: 2024/03/09 03:16:46 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASH_H
 # define HASH_H
 # include "./minishell.h"
-# define HASH_SIZE 100
+# define HASH_SIZE 200
+
 typedef int		t_bool;
 
 //=====hash==========
@@ -46,5 +47,6 @@ char	*hash_grep(t_hash *h, char *key);
 t_bool	hash_destory(t_hash	*h);
 t_bool	hash_del(t_hash	*h, char *key);
 void	hash_display(t_hash	h);
+char	**hash_to_arry(t_hash	*h);
 
 #endif

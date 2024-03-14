@@ -1,51 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
+/*   single_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
+/*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 11:56:06 by jjuarez-          #+#    #+#             */
-/*   Updated: 2024/03/04 17:52:23 by javgao           ###   ########.fr       */
+/*   Created: 2024/03/07 11:24:12 by javgao            #+#    #+#             */
+/*   Updated: 2024/03/13 23:08:56 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	ft_exit(int n_exit)
-{
-	if (n_exit == 1)
-		ft_putstr_fd("./pipex file1 cmd1 cmd2 file1\n", 2);
-	exit(0);
-}
-
-int	ft_open(char *file, int status)
-{
-	int	ret;
-
-	if (status == 0)
-		ret = open(file, O_RDONLY, 0777);
-	if (status == 1)
-		ret = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (status == 2)
-		ret = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
-	if (ret == -1)
-		exit(0);
-	return (ret);
-}
-
-void	ft_free(char **arr)
-{
-	size_t	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
 
 char	*ft_envp(char *variable, char **envp)
 {
@@ -89,12 +54,61 @@ char	*ft_path(char *cmd, char **envp)
 		free(path);
 		if (access(exec, F_OK | X_OK) == 0)
 		{
-			ft_free(cmds);
+			ft_free_arr(cmds);
 			return (exec);
 		}
 		free(exec);
 	}
-	ft_free(paths);
-	ft_free(cmds);
+	ft_free_arr(paths);
+	ft_free_arr(cmds);
 	return (cmd);
+}
+
+void	ft_exec_single(char *cmd, char **envp)
+{
+	char	**cmds;
+	char	*path;
+	int		status;
+	pid_t	pid;
+
+	cmds = ft_split(cmd, " ");
+	path = ft_path(cmds[0], envp);
+	pid = fork();
+	if (pid == 0)
+	{
+		init_sig_child ();
+		if (execve(path, cmds, envp) == -1)
+		{
+			printf ("mini: %s: command not found\n", cmd);
+			exit(0);
+		}
+	}
+	else if (pid < 0)
+		print_error("fork failed");
+	else
+	{
+		waitpid(pid, &status, 0);
+		g_sig = WIFEXITED (status);
+	}
+}
+
+int	single_command(t_mini *mini)
+{
+	char	**here_doc;
+
+	if (is_builtin(mini->commands[0], mini) == TRUE)
+		exec_builtin(mini->commands[0], mini->args[0], mini);
+	else
+	{
+		if (mini->flag_unset_path == TRUE)
+			return (print_error("No such file or directory"));
+		if (mini->flag_here_doc == TRUE)
+		{
+			here_doc = parse_single_here_doc(mini);
+			single_here_doc(3, here_doc);
+			ft_free_arr(here_doc);
+		}
+		not_builtin(mini->commands[0], mini->args[0], mini, SINGLE);
+	}
+	return (TRUE);
 }

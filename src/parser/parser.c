@@ -3,35 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
+/*   By: javgao <yugao@student.42madrid.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:22:24 by yugao             #+#    #+#             */
-/*   Updated: 2024/03/06 10:18:28 by javgao           ###   ########.fr       */
+/*   Updated: 2024/03/12 21:19:09 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	quote_check(char *str)
+static int	quote_check(char *str)
 {
-	int	little;
-	int	big;
+	while (*str)
+	{
+		if (*str == '\'')
+		{
+			str ++;
+			while (*str && *str != '\'')
+				str ++;
+			if (!*str)
+				return (-1);
+		}
+		else if (*str == '\"')
+		{
+			str ++;
+			while (*str && *str != '\"')
+				str ++;
+			if (!*str)
+				return (-1);
+		}
+		str ++;
+	}
+	return (1);
+}
+
+static int	apoy_norme_check(char *str, char *nex, char *check)
+{
+	if (is_strsame (str, check) && is_strsame (nex, ">>"))
+		return (print_error (ERR1), FALSE);
+	if (is_strsame (str, check) && is_strsame (nex, "<<"))
+		return (print_error (ERR2), FALSE);
+	if (is_strsame (str, check) && is_strsame (nex, "<"))
+		return (print_error (ERR3), FALSE);
+	if (is_strsame (str, check) && is_strsame (nex, ">"))
+		return (print_error (ERR4), FALSE);
+	if (is_strsame (str, check) && is_strsame (nex, "|"))
+		return (print_error (ERR5), FALSE);
+	return (TRUE);
+}
+
+static int	norme_check(char **ori)
+{
+	int	len;
 	int	i;
 
-	little = 0;
-	big = 0;
-	i = -1;
-	while (str[++i])
+	i = 0;
+	if (!ori)
+		return (TRUE);
+	len = arry_count (ori);
+	if (is_strsame (ori[len - 1], "|") || is_strsame (ori[len - 1], ">")
+		|| is_strsame (ori[len - 1], ">>") || is_strsame (ori[len - 1], "<")
+		|| is_strsame (ori[len - 1], "<<"))
+		return (print_error(ERR0), FALSE);
+	while (i < len)
 	{
-		if (str[i] == 34)
-			little ++;
-		if (str[i] == 39)
-			big ++;
+		if (ori[i + 1] && !apoy_norme_check (ori[i], ori[i + 1], ">"))
+			return (FALSE);
+		if (ori[i + 1] && !apoy_norme_check (ori[i], ori[i + 1], ">>"))
+			return (FALSE);
+		if (ori[i + 1] && !apoy_norme_check (ori[i], ori[i + 1], "<"))
+			return (FALSE);
+		if (ori[i + 1] && !apoy_norme_check (ori[i], ori[i + 1], "<<"))
+			return (FALSE);
+		i ++;
 	}
-	if (little > 0 && little % 2 != 0)
-		return (FALSE);
-	if (big > 0 && big % 2 != 0)
-		return (FALSE);
 	return (TRUE);
 }
 
@@ -40,20 +85,25 @@ char	**arg_abordar(char *ori)
 	char	**new_arvs;
 
 	if (!ori)
-		return (NULL);//error
+		return (NULL);
 	if (!ori[0])
-		return (NULL);//null context
-	if (!quote_check (ori))
-		return (NULL);//error
+		return (NULL);
+	if (quote_check (ori) == -1)
+		return (print_error("Those quotes are not pared!"), NULL);
 	new_arvs = NULL;
 	split_args (&new_arvs, ori);
+	if (!norme_check (new_arvs))
+		return (arry_destory (new_arvs), NULL);
 	return (new_arvs);
 }
 /*
 int main (void)
 {
-	// situacion como ||||||| o >>>>>> o <<<<<<<< o <> ><   >>>>le3 中间的">>"被当成文件了 所以le3没有被删除
-	char	test[]=" ls >file1 >>file2 -la arg1[1] arg2[1]|grep >file >>fill| cat -d arg1[3] | cd | ls arg1[4] arg2[4]";//write a checker to theck the ilegal situation
+	// situacion como ||||||| o >>>>>> o <<<<<<<< o <> ><   >>>>le3
+	// 中间的">>"被当成文件了 所以le3没有被删除
+	char	test[]=" ls >file1 >>file2 -la arg1[1] arg2[1]|grep >
+	//file >>fill| cat -d arg1[3] | cd | ls arg1[4] arg2[4]";//write
+	// a checker to theck the ilegal situation
 	char	**ori_args;
 	char	**outfile;
 	char	**cmds;

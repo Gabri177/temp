@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arry_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
+/*   By: javgao <yugao@student.42madrid.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 23:09:45 by javgao            #+#    #+#             */
-/*   Updated: 2024/03/07 23:21:59 by yugao            ###   ########.fr       */
+/*   Updated: 2024/03/11 23:33:25 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,113 +82,39 @@ int	count_args(char **args)
 	return (n);
 }
 
-void	argss_display(char ***args)
+/* char	***args_to_args(char **args)
 {
-	int	i;
-
-	i = 0;
-	if (!args || !*args)
-		return ;
-	while (args[i])
-	{
-		arry_display (args[i]);
-		i ++;
-	}
-}
-
-//传入合并命令后的ori数组 一般在用完args_to_cmd后使用, 我们会得到去掉simple command后的ori_args数组
-void	args_no_cmds(char ***args)
-{
-	int	i;
-
-	i = 0;
-	if (!args || !*args || !**args)
-	{
-		printf ("nulll!!!!!\n");
-		return ;
-	}
-	if (arry_count (*args) == 1)
-	{
-		arry_destory (*args);
-		*args = NULL;
-		return ;
-	}
-	if ((*args)[0] && !is_strsame ((*args)[0], PIPES))
-		arry_del (args, 0);
-	while (*args && (*args)[i] && arry_count (*args))
-	{
-		if (is_strsame ((*args)[i], PIPES) && (*args)[i + 1]
-			&& !is_strsame ((*args)[i + 1], PIPES))
-			arry_del (args, i + 1);
-		i ++;
-	}
-}
-
-//根据没有基础命令的数组进行参数的获取, 生成二维数组, 每获取一个数据就会删除一个数据
-char	**get_args(char ***args)
-{
-	char	**new;
-
-	new = NULL;
-	if (!*args || !**args)
-		return (arry_add(&new, "哈哈"), new);
-	if ((*args)[0] && is_strsame ((*args[0]), PIPES))
-	{
-		arry_del (args, 0);
-		arry_add(&new, "哈哈");
-		return (new);
-	}
-	while ((*args)[0] && !is_strsame ((*args[0]), PIPES))
-	{
-		arry_add (&new, (*args)[0]);
-		arry_del (args, 0);
-		if (is_strsame ((*args[0]), PIPES))
-		{
-			arry_del (args, 0);
-			break ;
-		}
-	}
-	return (new);
-}
-
-//销毁三维数组
-void	argss_destory(char ***argss)
-{
-	char	***ori;
-
-	ori = argss;
-	if (!argss || !*argss)
-		return ;
-	while (*argss)
-	{
-		arry_destory(*argss);
-		argss++;
-	}
-	free(ori);
-}
-
-
-//这个函数是用来将没有基础命令且包含管道符号的数组进行处理, 并根据index返回一个三维数组, 每个数组都是对应命令的参数
-char	***args_to_args(char ***args)
-{
-	char	***new;
+	char	***cmds;
+	int		cmds_count;
+	char	**current_args;
 	int		i;
-	int		len;
+	int		has_args;
 
-	if (!*args || !**args)
+	if (!args || !*args || !**args)
 		return (NULL);
-	new = NULL;
+	cmds = NULL;
+	cmds_count = 0;
+	current_args = NULL;
 	i = 0;
-	args_no_cmds (args);
-	len = count_args (*args);
-	new = malloc (sizeof (char **) * (len + 1));
-	while (i <= len)
-		new[i++] = NULL;
-	i = 0;
-	while (i < len)
+	while (args[i] != NULL)
 	{
-		new[i] = get_args (args);
-		i ++;
+		i++;
+		has_args = 0;
+		while (args[i] != NULL && !is_strsame(args[i], "|"))
+		{
+			arry_add(&current_args, args[i]);
+			has_args = 1;
+			i++;
+		}
+		if (!has_args)
+			arry_add(&current_args, "哈");
+		cmds_count ++;
+		cmds = realloc(cmds, sizeof (char**) * (cmds_count + 1));
+		cmds[cmds_count - 1] = current_args;
+		cmds[cmds_count] = NULL;
+		current_args = NULL;
+		if (args[i] != NULL)
+			i ++;
 	}
-	return (new);
-}
+	return (cmds);
+} */

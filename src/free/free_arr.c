@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   free_arr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javgao <jjuarez-@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/03 18:36:30 by javgao            #+#    #+#             */
-/*   Updated: 2024/03/04 22:38:25 by javgao           ###   ########.fr       */
+/*   Created: 2024/03/08 19:32:08 by javgao            #+#    #+#             */
+/*   Updated: 2024/03/11 03:36:37 by javgao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#include "../../include/minishell.h"
 
-# include "minishell.h"
+void	ft_free_arr(char **arr)
+{
+	size_t	i;
 
-//void	init_mini(t_mini *mini, int argc, char **argv, char **envp);
-
-#endif
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
